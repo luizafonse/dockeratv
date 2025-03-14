@@ -7,16 +7,18 @@ Objetivo: Execute um container usando a imagem do Nginx e acesse a página padr�
 
 Exemplo de aplicação: Use a landing page do TailwindCSS como site estático dentro do container.
 
-bash
-Copy
 ### Baixar a imagem do Nginx
+```bash
 docker pull nginx
 
 ### Criar e rodar um container Nginx
+
 docker run --name nome_container -d -p 8080:80 nginx
 
 ### Acessar o terminal do container
+
 docker exec -ti nome_container bash
+```
 Explicação:
 
 docker pull nginx: Baixa a imagem oficial do Nginx.
@@ -31,6 +33,7 @@ Objetivo: Inicie um container Ubuntu e interaja com o terminal dele.
 Exemplo de aplicação: Teste um script Bash que imprime logs do sistema ou instala pacotes de forma interativa.
 
 ### Criar e rodar um container Ubuntu com terminal interativo
+```bash
 docker run -dti --name nome_cont ubuntu
 
 ### Acessar o terminal do container
@@ -40,8 +43,10 @@ docker exec -ti nome_cont /bin/bash
 apt install nano 
 cd /home/ubuntu
 nano nome_bash.sh 
-chmod +x nome_bash.sh (comando para permição de executavel para um arquivo, necessario sudo su para o acesso)
-./nome_bash.sh (executar script)
+chmod +x nome_bash.sh #comando para permição de executavel para um arquivo, necessario sudo su para o acesso
+./nome_bash.sh #executar script
+
+``` 
 Explicação:
 
 docker run -dti --name nome_cont ubuntu: Cria um container Ubuntu com terminal interativo (-ti).
@@ -58,6 +63,7 @@ Objetivo: Liste todos os containers em execução e parados, pare um container e
 Exemplo de aplicação: Gerenciar containers de testes criados para verificar configurações ou dependências.
 
 ### Listar containers em execução
+```bash
 docker ps
 
 ### Listar todos os containers (incluindo parados)
@@ -68,6 +74,8 @@ docker stop nome_container
 
 ### Remover um container
 docker rm nome_container
+```
+
 Explicação:
 
 docker ps: Lista containers em execução.
@@ -245,7 +253,6 @@ networks:
 
 volumes:
   volpost:
-
 
 
 Comandos:
