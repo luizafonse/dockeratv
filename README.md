@@ -30,8 +30,6 @@ Objetivo: Inicie um container Ubuntu e interaja com o terminal dele.
 
 Exemplo de aplicação: Teste um script Bash que imprime logs do sistema ou instala pacotes de forma interativa.
 
-bash
-Copy
 ### Criar e rodar um container Ubuntu com terminal interativo
 docker run -dti --name nome_cont ubuntu
 
@@ -59,8 +57,6 @@ Objetivo: Liste todos os containers em execução e parados, pare um container e
 
 Exemplo de aplicação: Gerenciar containers de testes criados para verificar configurações ou dependências.
 
-bash
-Copy
 ### Listar containers em execução
 docker ps
 
@@ -89,16 +85,13 @@ Exemplo de aplicação: Use a API de exemplo Flask Restful API Starter para cria
 
 Estrutura do Projeto:
 
-Copy
 flask-app/
 ├── app.py
 ├── requirements.txt
 └── Dockerfile
 
-#### app.py:
+### app.py:
 
-python
-Copy
 from flask import Flask
 
 app = Flask(__name__)
@@ -110,13 +103,13 @@ def feira():
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
 
-#### requirements.txt:
+### requirements.txt:
 
 
 Flask==2.3.2
 
 
-Dockerfile:
+### Dockerfile:
 
 FROM python:3.13  
 WORKDIR /app  
@@ -139,8 +132,8 @@ docker build . -t nome-imagem: Constrói a imagem Docker.
 
 docker run -dti --name nome_container -p 5000:5000 nome_img: Roda o container mapeando a porta 5000.
 
-🟡 Médio
-5. Criando e utilizando volumes para persistência de dados
+## 🟡 Médio
+## 5. Criando e utilizando volumes para persistência de dados
 Objetivo: Execute um container MySQL e configure um volume para armazenar os dados do banco de forma persistente.
 
 Exemplo de aplicação: Use o sistema de login e cadastro do Laravel Breeze, que usa MySQL.
@@ -165,7 +158,7 @@ docker exec -ti vol1 /bin/bash: Acessa o terminal do container.
 
 mysql -u root -p --protocol=tcp --port=3306: Acessa o MySQL dentro do container.
 
-6. Criando e rodando um container multi-stage
+## 6. Criando e rodando um container multi-stage
 Objetivo: Utilize um multi-stage build para otimizar uma aplicação Go, reduzindo o tamanho da imagem final.
 
 Exemplo de aplicação: Compile e rode a API do Go Fiber Example dentro do container.
@@ -198,7 +191,7 @@ O primeiro estágio compila o código Go.
 
 O segundo estágio cria uma imagem leve usando Alpine e copia o binário compilado.
 
-7. Construindo uma rede Docker para comunicação entre containers
+## 7. Construindo uma rede Docker para comunicação entre containers
 Objetivo: Crie uma rede Docker personalizada e faça dois containers, um Node.js e um MongoDB, se comunicarem.
 
 Exemplo de aplicação: Utilize o projeto MEAN Todos para criar um app de tarefas usando Node.js + MongoDB.
@@ -217,7 +210,7 @@ docker network create rede1: Cria uma rede Docker.
 
 docker run --network rede1: Conecta os containers à mesma rede.
 
-8. Criando um compose file para rodar uma aplicação com banco de dados
+## 8. Criando um compose file para rodar uma aplicação com banco de dados
 Objetivo: Utilize Docker Compose para configurar uma aplicação Django com um banco de dados PostgreSQL.
 
 Exemplo de aplicação: Use o projeto Django Polls App para criar uma pesquisa de opinião integrada ao banco.
@@ -267,12 +260,12 @@ O arquivo docker-compose.yml define dois serviços: db (PostgreSQL) e django (Dj
 docker compose up -d: Inicia os containers em segundo plano.
 
 🔴 Difícil
-9. Criando uma imagem personalizada com um servidor web e arquivos estáticos
+## 9. Criando uma imagem personalizada com um servidor web e arquivos estáticos
 Objetivo: Construa uma imagem baseada no Nginx ou Apache, adicionando um site HTML/CSS estático.
 
 Exemplo de aplicação: Utilize a landing page do Creative Tim para criar uma página moderna hospedada no container.
 
-Dockerfile:
+### Dockerfile:
 
 FROM nginx:stable-perl
 COPY index.html /usr/share/nginx/html/
@@ -282,12 +275,13 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
 
-Comandos:
-# Construir a imagem
+## Comandos:
+## Construir a imagem
 docker build -t nome_imagem .
 
-# Rodar o container
+## Rodar o container
 docker run -dti -p 8080:80 --name nome_a_escolher nome_imagem
+
 Explicação:
 
 O Dockerfile copia os arquivos estáticos e a configuração do Nginx para a imagem.
