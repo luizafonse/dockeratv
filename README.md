@@ -41,9 +41,13 @@ docker exec -ti nome_cont /bin/bash
 
 ### Dentro do container:
 apt install nano 
+
 cd /home/ubuntu
+
 nano nome_bash.sh 
+
 chmod +x nome_bash.sh #comando para permição de executavel para um arquivo, necessario sudo su para o acesso
+
 ./nome_bash.sh #executar script
 
 ``` 
@@ -93,13 +97,14 @@ Exemplo de aplicação: Use a API de exemplo Flask Restful API Starter para cria
 
 Estrutura do Projeto:
 
+```bash
 flask-app/
 ├── app.py
 ├── requirements.txt
 └── Dockerfile
-
+```
 ### app.py:
-
+```bash
 from flask import Flask
 
 app = Flask(__name__)
@@ -110,15 +115,15 @@ def feira():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
+```
 ### requirements.txt:
 
-
+```bash
 Flask==2.3.2
-
+```
 
 ### Dockerfile:
-
+```bash
 FROM python:3.13  
 WORKDIR /app  
 COPY requirements.txt .  
@@ -126,10 +131,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .  
 EXPOSE 5000  
 CMD ["python", "app.py"]
+```
+
 Comandos:
-
-
+```bash
 # Construir a imagem
+
 docker build . -t nome-imagem
 
 # Rodar o container
@@ -139,14 +146,14 @@ Explicação:
 docker build . -t nome-imagem: Constrói a imagem Docker.
 
 docker run -dti --name nome_container -p 5000:5000 nome_img: Roda o container mapeando a porta 5000.
-
+```
 ## 🟡 Médio
 ## 5. Criando e utilizando volumes para persistência de dados
 Objetivo: Execute um container MySQL e configure um volume para armazenar os dados do banco de forma persistente.
 
 Exemplo de aplicação: Use o sistema de login e cadastro do Laravel Breeze, que usa MySQL.
 
-
+```bash
 # Criar um volume
 docker volume create volume_name
 
@@ -155,7 +162,9 @@ docker run -dti --name vol1 -e MYSQL_ROOT_PASSWORD=senha -p 3306:3306 -v volume_
 
 # Acessar o MySQL
 docker exec -ti vol1 /bin/bash
+
 mysql -u root -p --protocol=tcp --port=3306
+```
 Explicação:
 
 docker volume create volume_name: Cria um volume Docker.
@@ -172,7 +181,7 @@ Objetivo: Utilize um multi-stage build para otimizar uma aplicação Go, reduzin
 Exemplo de aplicação: Compile e rode a API do Go Fiber Example dentro do container.
 
 Dockerfile:
-
+```bash
 # Estágio 1: Compilação
 FROM golang as exec
 COPY app.go /go/src/app/
@@ -187,12 +196,17 @@ COPY --from=exec /go/src/app /appexec
 RUN chmod -R 755 /appexec
 ENTRYPOINT ./app.go
 Comandos:
+```
+Após isso:
 
+```bash
 # Construir a imagem
 docker image build -t nome-imagem .
 
 # Rodar o container
 docker run -ti --name nome_app app-go:1.0 
+```
+
 Explicação:
 
 O primeiro estágio compila o código Go.
@@ -204,6 +218,7 @@ Objetivo: Crie uma rede Docker personalizada e faça dois containers, um Node.js
 
 Exemplo de aplicação: Utilize o projeto MEAN Todos para criar um app de tarefas usando Node.js + MongoDB.
 
+```bash
 # Criar uma rede Docker
 docker network create rede1
 
@@ -212,6 +227,8 @@ docker run -dti --name nome_container --network rede1 mongo
 
 # Rodar o container Node.js
 docker run -dti --name nome_container --network rede1 -p 3000:3000 node
+```
+
 Explicação:
 
 docker network create rede1: Cria uma rede Docker.
@@ -225,6 +242,7 @@ Exemplo de aplicação: Use o projeto Django Polls App para criar uma pesquisa d
 
 docker-compose.yml:
 
+```bash
 version: '3.8'
 
 services:
@@ -253,13 +271,14 @@ networks:
 
 volumes:
   volpost:
-
+```
 
 Comandos:
 
-
+```bash
 # Iniciar os containers
 docker compose up -d
+```
 Explicação:
 
 O arquivo docker-compose.yml define dois serviços: db (PostgreSQL) e django (Django).
@@ -273,21 +292,24 @@ Objetivo: Construa uma imagem baseada no Nginx ou Apache, adicionando um site HT
 Exemplo de aplicação: Utilize a landing page do Creative Tim para criar uma página moderna hospedada no container.
 
 ### Dockerfile:
-
+```bash
 FROM nginx:stable-perl
 COPY index.html /usr/share/nginx/html/
 COPY styles.css /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
-
+```
 
 ## Comandos:
+
+```bash
 ## Construir a imagem
 docker build -t nome_imagem .
 
 ## Rodar o container
 docker run -dti -p 8080:80 --name nome_a_escolher nome_imagem
+``` 
 
 Explicação:
 
