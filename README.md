@@ -1,21 +1,21 @@
-Exercícios Docker: Um Tutorial Prático
+# Exercícios Docker: Um Tutorial Prático
 Este tutorial tem como objetivo guiar você através de uma série de exercícios práticos com Docker, desde tarefas básicas até avançadas. Cada exercício é explicado passo a passo, com comandos e exemplos para facilitar o aprendizado.
 
-🟢 Fácil
-1. Rodando um container básico
+## 🟢 Fácil
+## 1. Rodando um container básico
 Objetivo: Execute um container usando a imagem do Nginx e acesse a página padrão no navegador.
 
 Exemplo de aplicação: Use a landing page do TailwindCSS como site estático dentro do container.
 
 bash
 Copy
-# Baixar a imagem do Nginx
+### Baixar a imagem do Nginx
 docker pull nginx
 
-# Criar e rodar um container Nginx
+### Criar e rodar um container Nginx
 docker run --name nome_container -d -p 8080:80 nginx
 
-# Acessar o terminal do container
+### Acessar o terminal do container
 docker exec -ti nome_container bash
 Explicação:
 
@@ -25,20 +25,20 @@ docker run --name nome_container -d -p 8080:80 nginx: Cria um container chamado 
 
 docker exec -ti nome_container bash: Acessa o terminal interativo do container.
 
-2. Criando e rodando um container interativo
+## 2. Criando e rodando um container interativo
 Objetivo: Inicie um container Ubuntu e interaja com o terminal dele.
 
 Exemplo de aplicação: Teste um script Bash que imprime logs do sistema ou instala pacotes de forma interativa.
 
 bash
 Copy
-# Criar e rodar um container Ubuntu com terminal interativo
+### Criar e rodar um container Ubuntu com terminal interativo
 docker run -dti --name nome_cont ubuntu
 
-# Acessar o terminal do container
+### Acessar o terminal do container
 docker exec -ti nome_cont /bin/bash
 
-# Dentro do container:
+### Dentro do container:
 apt install nano 
 cd /home/ubuntu
 nano nome_bash.sh 
@@ -54,23 +54,23 @@ apt install nano: Instala o editor de texto nano.
 
 chmod +x nome_bash.sh: Torna o script executável.
 
-3. Listando e removendo containers
+## 3. Listando e removendo containers
 Objetivo: Liste todos os containers em execução e parados, pare um container em execução e remova um container específico.
 
 Exemplo de aplicação: Gerenciar containers de testes criados para verificar configurações ou dependências.
 
 bash
 Copy
-# Listar containers em execução
+### Listar containers em execução
 docker ps
 
-# Listar todos os containers (incluindo parados)
+### Listar todos os containers (incluindo parados)
 docker ps -a
 
-# Parar um container
+### Parar um container
 docker stop nome_container
 
-# Remover um container
+### Remover um container
 docker rm nome_container
 Explicação:
 
@@ -82,7 +82,7 @@ docker stop nome_container: Para um container em execução.
 
 docker rm nome_container: Remove um container específico.
 
-4. Criando um Dockerfile para uma aplicação simples em Python
+## 4. Criando um Dockerfile para uma aplicação simples em Python
 Objetivo: Crie um Dockerfile para uma aplicação Flask que retorna uma mensagem ao acessar um endpoint.
 
 Exemplo de aplicação: Use a API de exemplo Flask Restful API Starter para criar um endpoint de teste.
@@ -94,7 +94,8 @@ flask-app/
 ├── app.py
 ├── requirements.txt
 └── Dockerfile
-app.py:
+
+#### app.py:
 
 python
 Copy
@@ -108,14 +109,15 @@ def feira():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-requirements.txt:
 
-Copy
+#### requirements.txt:
+
+
 Flask==2.3.2
+
+
 Dockerfile:
 
-Dockerfile
-Copy
 FROM python:3.13  
 WORKDIR /app  
 COPY requirements.txt .  
@@ -125,8 +127,7 @@ EXPOSE 5000
 CMD ["python", "app.py"]
 Comandos:
 
-bash
-Copy
+
 # Construir a imagem
 docker build . -t nome-imagem
 
@@ -144,8 +145,7 @@ Objetivo: Execute um container MySQL e configure um volume para armazenar os dad
 
 Exemplo de aplicação: Use o sistema de login e cadastro do Laravel Breeze, que usa MySQL.
 
-bash
-Copy
+
 # Criar um volume
 docker volume create volume_name
 
@@ -172,8 +172,6 @@ Exemplo de aplicação: Compile e rode a API do Go Fiber Example dentro do conta
 
 Dockerfile:
 
-Dockerfile
-Copy
 # Estágio 1: Compilação
 FROM golang as exec
 COPY app.go /go/src/app/
@@ -189,8 +187,6 @@ RUN chmod -R 755 /appexec
 ENTRYPOINT ./app.go
 Comandos:
 
-bash
-Copy
 # Construir a imagem
 docker image build -t nome-imagem .
 
@@ -207,8 +203,6 @@ Objetivo: Crie uma rede Docker personalizada e faça dois containers, um Node.js
 
 Exemplo de aplicação: Utilize o projeto MEAN Todos para criar um app de tarefas usando Node.js + MongoDB.
 
-bash
-Copy
 # Criar uma rede Docker
 docker network create rede1
 
@@ -230,8 +224,6 @@ Exemplo de aplicação: Use o projeto Django Polls App para criar uma pesquisa d
 
 docker-compose.yml:
 
-yaml
-Copy
 version: '3.8'
 
 services:
@@ -260,10 +252,12 @@ networks:
 
 volumes:
   volpost:
+
+
+
 Comandos:
 
-bash
-Copy
+
 # Iniciar os containers
 docker compose up -d
 Explicação:
@@ -280,18 +274,15 @@ Exemplo de aplicação: Utilize a landing page do Creative Tim para criar uma p�
 
 Dockerfile:
 
-Dockerfile
-Copy
 FROM nginx:stable-perl
 COPY index.html /usr/share/nginx/html/
 COPY styles.css /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
-Comandos:
 
-bash
-Copy
+
+Comandos:
 # Construir a imagem
 docker build -t nome_imagem .
 
